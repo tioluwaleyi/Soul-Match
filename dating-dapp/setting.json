@@ -1,0 +1,14 @@
+{
+  "solidity.compileUsingRemoteVersion": "v0.8.19",
+  "solidity.enableLocalNodeCompiler": false,
+    "solidity.validate.enable": false,
+  "solidity.remappings": [
+    "@openzeppelin/=node_modules/@openzeppelin/"
+    
+  ],
+  "solidity.packageDefaultDependenciesContractsDirectory": "",
+  "solidity.packageDefaultDependenciesDirectory": "node_modules",
+  "files.associations": {
+    "*.sol": "solidity"
+  }
+}
