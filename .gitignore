@@ -1,0 +1,23 @@
+# Environment / secrets
+.env
+**/.env
+.env.*
+**/.env.*
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Hardhat generated files
+**/artifacts/
+**/cache/
+
+# Frontend build
+**/dist/
+
+# Local backup/config history
+**/hardhat.config.backup.ts
+
+# Logs
+*.log
+npm-debug.log*

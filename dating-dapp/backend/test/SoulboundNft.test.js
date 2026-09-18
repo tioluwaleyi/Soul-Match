@@ -14,11 +14,11 @@ describe("DatingEscrow", function () {
 
         const SoulboundNFT = await ethers.getContractFactory("SoulboundNFT");
         soulboundNFT = await SoulboundNFT.deploy();
-        await soulboundNFT.waitForDeployment();
+        await soulboundNFT.deployed();
 
         const DatingEscrow = await ethers.getContractFactory("DatingEscrow");
-        datingEscrow = await DatingEscrow.deploy(await soulboundNFT.getAddress());
-        await datingEscrow.waitForDeployment();
+        datingEscrow = await DatingEscrow.deploy(soulboundNFT.address);
+        await datingEscrow.deployed();
 
         // Create profiles
         await soulboundNFT.connect(addr1).createProfile("ipfs://QmTest1");
@@ -26,7 +26,7 @@ describe("DatingEscrow", function () {
         await soulboundNFT.connect(addr3).createProfile("ipfs://QmTest3");
 
         // Transfer ownership to escrow
-        await soulboundNFT.transferOwnership(await datingEscrow.getAddress());
+        await soulboundNFT.transferOwnership(datingEscrow.address);
     });
 
     describe("Liking and Matching", function () {
@@ -34,7 +34,10 @@ describe("DatingEscrow", function () {
         it("Should create a like", async function () {
             await datingEscrow.connect(addr1).like(addr2.address);
 
-            const status = await datingEscrow.getMatchStatus(addr1.address, addr2.address);
+            const status = await datingEscrow.getMatchStatus(
+                addr1.address,
+                addr2.address
+            );
 
             expect(status).to.equal(1);
         });
@@ -43,10 +46,12 @@ describe("DatingEscrow", function () {
             await datingEscrow.connect(addr1).like(addr2.address);
             await datingEscrow.connect(addr2).like(addr1.address);
 
-            const status = await datingEscrow.getMatchStatus(addr1.address, addr2.address);
+            const status = await datingEscrow.getMatchStatus(
+                addr1.address,
+                addr2.address
+            );
 
-            expect(status).to.equal(2); // Matched
+            expect(status).to.equal(2);
         });
-
     });
 });
